@@ -35,6 +35,16 @@ function displayTasks() {
 
     taskList.innerHTML = "";
 
+    const priorityOrder = {
+        high: 1,
+        medium: 2,
+        low: 3
+    };
+
+    tasks.sort(function(a, b) {
+        return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+
     tasks.forEach(function(task, index) {
 
         const taskElement = document.createElement("div");
@@ -46,17 +56,41 @@ function displayTasks() {
             taskElement.classList.add("completed");
         }
 
-        const taskText = document.createElement("span");
 
-        taskText.textContent =
-            task.name + " - Priority: " + task.priority;
+        const taskHeader = document.createElement("div");
+        taskHeader.classList.add("task-header");
 
-        taskElement.appendChild(taskText);
+
+        const taskName = document.createElement("span");
+        taskName.classList.add("task-name");
+        taskName.textContent = task.name;
+
+
+        const priority = document.createElement("span");
+        priority.classList.add("priority");
+
+        priority.textContent =
+            "Priority: " +
+            task.priority.charAt(0).toUpperCase() +
+            task.priority.slice(1);
+
+
+        taskHeader.appendChild(taskName);
+        taskHeader.appendChild(priority);
+
+
+        const buttonArea = document.createElement("div");
+        buttonArea.classList.add("task-buttons");
 
 
         const completeButton = document.createElement("button");
+        completeButton.classList.add("complete-button");
 
-        completeButton.textContent = "Complete";
+        if (task.completed) {
+            completeButton.textContent = "Undo";
+        } else {
+            completeButton.textContent = "Complete";
+        }
 
         completeButton.addEventListener("click", function() {
 
@@ -66,11 +100,9 @@ function displayTasks() {
 
         });
 
-        taskElement.appendChild(completeButton);
-
 
         const deleteButton = document.createElement("button");
-
+        deleteButton.classList.add("delete-button");
         deleteButton.textContent = "Delete";
 
         deleteButton.addEventListener("click", function() {
@@ -81,7 +113,13 @@ function displayTasks() {
 
         });
 
-        taskElement.appendChild(deleteButton);
+
+        buttonArea.appendChild(completeButton);
+        buttonArea.appendChild(deleteButton);
+
+
+        taskElement.appendChild(taskHeader);
+        taskElement.appendChild(buttonArea);
 
 
         taskList.appendChild(taskElement);

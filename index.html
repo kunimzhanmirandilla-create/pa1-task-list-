@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +7,6 @@
     <title>My Task List</title>
 
     <link rel="stylesheet" href="style.css">
-
     <script src="script.js" defer></script>
 </head>
 
@@ -20,30 +18,40 @@
 
         <form id="task-form">
 
-            <label for="task-input">Task:</label>
+            <div class="form-group">
+                <label for="task-input">Task</label>
+                <input
+                    id="task-input"
+                    type="text"
+                    placeholder="Enter task"
+                >
+            </div>
 
-            <input
-                id="task-input"
-                type="text"
-                placeholder="Enter a task"
-            >
+            <div class="form-group">
+                <label for="priority">Priority</label>
 
-            <label for="priority">Priority:</label>
+                <select id="priority">
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+            </div>
 
-            <select id="priority">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-
-            <button type="submit">Add Task</button>
+            <button type="submit" class="add-button">
+                Add Task
+            </button>
 
         </form>
 
-        <div id="task-list"></div>
+        <div class="task-section">
+
+            <h2>Tasks</h2>
+
+            <div id="task-list"></div>
+
+        </div>
 
     </div>
 
 </body>
-
 </html>
